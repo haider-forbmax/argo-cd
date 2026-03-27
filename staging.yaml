@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello-app-staging
+  namespace: argocd
+spec:
+  project: staging-project
+
+  source:
+    repoURL: https://github.com/haider-forbmax/argo-cd.git
+    targetRevision: main
+    path: hello-app
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

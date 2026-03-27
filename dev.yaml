@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello-app-dev
+  namespace: argocd
+spec:
+  project: dev-project
+
+  source:
+    repoURL: https://github.com/haider-forbmax/argo-cd.git
+    targetRevision: main
+    path: hello-app
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+      
